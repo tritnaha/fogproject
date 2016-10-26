@@ -32,6 +32,24 @@ class PersistentGroupsManager extends FOGManagerController
      */
     public function install($name)
     {
+        /**
+         * Create our template and associative tables.
+         */
+        self::getClass('GroupTemplateManager')
+            ->install();
+        self::getClass('GroupTemplateSnapinManager')
+            ->install();
+        self::getClass('GroupTemplatePrinterManager')
+            ->install();
+        self::getClass('GroupTemplateModuleManager')
+            ->install();
+        self::getClass('GroupTemplateAutoLogoutManager')
+            ->install();
+        self::getClass('GroupTemplateScreenManager')
+            ->install();
+        /**
+         * Install our plugin as needed
+         */
         $this->uninstall();
         $sql = "CREATE TRIGGER `persistentGroups` 
             AFTER INSERT ON `groupMembers` 
@@ -85,6 +103,21 @@ class PersistentGroupsManager extends FOGManagerController
      */
     public function uninstall()
     {
+        /**
+         * Create our template and associative tables.
+         */
+        self::getClass('GroupTemplateManager')
+            ->uninstall();
+        self::getClass('GroupTemplateSnapinManager')
+            ->uninstall();
+        self::getClass('GroupTemplatePrinterManager')
+            ->uninstall();
+        self::getClass('GroupTemplateModuleManager')
+            ->uninstall();
+        self::getClass('GroupTemplateAutoLogoutManager')
+            ->uninstall();
+        self::getClass('GroupTemplateScreenManager')
+            ->uninstall();
         $sql = 'DROP TRIGGER IF EXISTS `persistentGroups`';
         return self::$DB->query($sql);
     }
