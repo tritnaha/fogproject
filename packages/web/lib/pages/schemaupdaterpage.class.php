@@ -126,10 +126,10 @@ class SchemaUpdaterPage extends FOGPage
      */
     public function indexPost()
     {
-        if (!isset($_POST['fogverified'])) {
+        if (!isset($_REQUEST['fogverified'])) {
             return;
         }
-        if (!isset($_POST['confirm'])) {
+        if (!isset($_REQUEST['confirm'])) {
             return;
         }
         include sprintf(
