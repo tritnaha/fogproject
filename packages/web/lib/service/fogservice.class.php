@@ -103,6 +103,7 @@ abstract class FOGService extends FOGBase
     protected function checkIfNodeMaster()
     {
         self::getIPAddress();
+        $this->waitDbReady();
         $Nodes = self::getClass('StorageNodeManager')
             ->find(
                 array(
@@ -168,6 +169,9 @@ abstract class FOGService extends FOGBase
      */
     public function waitDbReady()
     {
+        if (!self::$DB->link()->connect_errno) {
+            return;
+        }
         self::outall(
             sprintf(
                 'FOGService: %s - %s',
@@ -319,6 +323,7 @@ abstract class FOGService extends FOGBase
      */
     public function serviceRun()
     {
+        $this->waitDbReady();
         $tmpTime = self::getSetting(static::$sleeptime);
         if (static::$zzz != $tmpTime) {
             static::$zzz = $tmpTime;

@@ -110,6 +110,7 @@ class PingHosts extends FOGService
     private function _commonOutput()
     {
         try {
+            $this->waitDbReady();
             if (self::$_pingOn < 1) {
                 throw new Exception(_(' * Host Ping is not enabled'));
             }
