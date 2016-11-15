@@ -477,12 +477,12 @@ abstract class FOGPage extends FOGBase
                 }
             }
             $this->data = array();
+            $find = '';
+            if ($this->childClass === 'Host') {
+                $find = array('pending' => array(0, ''));
+            }
             $Items = self::getClass($manager)
-                ->find(
-                    array(
-                        'pending' => array(0, '')
-                    )
-                );
+                ->find($find);
             array_walk($Items, static::$returnData);
             unset($Items);
             $event = sprintf(
